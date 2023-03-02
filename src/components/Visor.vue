@@ -194,7 +194,7 @@ export default {
             video: null,
             features: [],
             xmlAPI: null,
-            socket: io('localhost:3900', { transports: ['websocket'] })
+            socket: io('192.168.0.7:3900', { transports: ['websocket'] })
         };
     },
 
@@ -206,7 +206,7 @@ export default {
             console.log(data);
             xmlhttp = new XMLHttpRequest();
             const here = this;
-            axios.get('http://localhost:3900/api/xml/' + this.name).then(res => {
+            axios.get('http://192.168.0.7:3900/api/xml/' + this.name).then(res => {
                 this.LoadXML(res.data.xml);
             }).catch(err => {
                 console.log(err);
@@ -215,7 +215,7 @@ export default {
 
         xmlhttp = new XMLHttpRequest();
         const here = this;
-        axios.get('http://localhost:3900/api/xml/' + this.name).then(res => {
+        axios.get('http://192.168.0.7:3900/api/xml/' + this.name).then(res => {
             this.LoadXML(res.data.xml);
         }).catch(err => {
             console.log(err);
@@ -265,7 +265,7 @@ export default {
             clave = clave[clave.length - 1].id;
             this.claveVue = clave;
 
-            axios.get('http://localhost:3900/api/article/' + clave).then(res => {
+            axios.get('http://192.168.0.7:3900/api/article/' + clave).then(res => {
                 this.linea = res.data.article.linea_producto;
                 this.alias = res.data.article.alias_producto;
                 this.clvprov = res.data.article.clvprov_producto;
@@ -282,14 +282,14 @@ export default {
         },
 
         imagen2(clave) {
-            axios.get('http://localhost:3900/api/image/' + clave).then(res => {
+            axios.get('http://192.168.0.7:3900/api/image/' + clave).then(res => {
             });
-            var imgTmp = 'http://localhost/xml/images/' + clave.trim().toUpperCase();
+            var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase();
             if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
-                var image_url = document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
+                var image_url = document.getElementById("img").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
                 if (this.imageExists(image_url) != false) {
-                    document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
-                    document.getElementById("imgModal").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
+                    document.getElementById("img").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
+                    document.getElementById("imgModal").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
                 } else {
                     document.getElementById("img").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
                     document.getElementById("imgModal").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
@@ -308,13 +308,13 @@ export default {
         },
 
         modalFeatures(id) {
-            axios.get('http://localhost:3900/api/features/' + id).then(res => {
+            axios.get('http://192.168.0.7:3900/api/features/' + id).then(res => {
                 this.features = res.data.features;
             });
         },
 
         Video(id) {
-            axios.get('http://localhost:3900/api/video/' + id)
+            axios.get('http://192.168.0.7:3900/api/video/' + id)
                 .then(res => {
                     this.video = res.data.video;
                 })
@@ -327,7 +327,7 @@ export default {
 
         imagen(clave) {
             //var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toLowerCase();
-            var imgTmp = 'http://localhost/xml/images/' + clave.trim().toUpperCase();
+            var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase();
             if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
                 var image_url = document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
                 console.log(this.imageExists(image_url));
