@@ -194,7 +194,7 @@ export default {
             video: null,
             features: [],
             xmlAPI: null,
-            socket: io('192.168.0.7:3900', { transports: ['websocket'] })
+            socket: io(`${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}`, { transports: ['websocket'] })
         };
     },
 
@@ -206,7 +206,7 @@ export default {
             console.log(data);
             xmlhttp = new XMLHttpRequest();
             const here = this;
-            axios.get('http://192.168.0.7:3900/api/xml/' + this.name).then(res => {
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
                 this.LoadXML(res.data.xml);
             }).catch(err => {
                 console.log(err);
@@ -214,8 +214,7 @@ export default {
         });
 
         xmlhttp = new XMLHttpRequest();
-        const here = this;
-        axios.get('http://192.168.0.7:3900/api/xml/' + this.name).then(res => {
+        axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
             this.LoadXML(res.data.xml);
         }).catch(err => {
             console.log(err);
@@ -224,15 +223,11 @@ export default {
     },
     methods: {
         LoadXML(xml) {
-            var productos, i, xmlDoc, nametxt, areEqual, total, vendedor, fecha;
+            var productos, i, xmlDoc;
             this.xmlAPI = xml;
             xmlDoc = JSON.parse(xml);
             var xmlObj = xmlDoc.CHARACTER;
-            //fecha = xmlDoc.getElementsByTagName("DOCUMENTO"); this returns the error of "Cannot read property 'getElementsByTagName' of null"
-            //vendedor = xmlDoc.getElementsByTagName("VENDEDOR");
-            //total = xmlDoc.getElementsByTagName("TOTAL");
             productos = xmlObj.PRODUCTOS;
-            //console.log("muuttujan x eka: " + x[0].innerHTML);
             document.getElementById("fecha").innerHTML = xmlObj.DOCUMENTO[0].FECHA[0];
             document.getElementById("total").innerHTML = xmlObj.TOTAL[0]._;
             document.getElementById("vendedor").innerHTML = xmlObj.VENDEDOR[0];
@@ -265,7 +260,7 @@ export default {
             clave = clave[clave.length - 1].id;
             this.claveVue = clave;
 
-            axios.get('http://192.168.0.7:3900/api/article/' + clave).then(res => {
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/article/` + clave).then(res => {
                 this.linea = res.data.article.linea_producto;
                 this.alias = res.data.article.alias_producto;
                 this.clvprov = res.data.article.clvprov_producto;
@@ -282,22 +277,22 @@ export default {
         },
 
         imagen2(clave) {
-            axios.get('http://192.168.0.7:3900/api/image/' + clave).then(res => {
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
             });
-            var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase();
+            var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase();
             if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
-                var image_url = document.getElementById("img").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
+                var image_url = document.getElementById("img").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
                 if (this.imageExists(image_url) != false) {
-                    document.getElementById("img").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
-                    document.getElementById("imgModal").src = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase() + '.jpg';
+                    document.getElementById("img").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
+                    document.getElementById("imgModal").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
                 } else {
-                    document.getElementById("img").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
-                    document.getElementById("imgModal").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
+                    document.getElementById("img").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
+                    document.getElementById("imgModal").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
                 }
-                document.getElementById("imgSec").src = 'https://ferremobil.com/img/productos/_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgSecModal").src = 'https://ferremobil.com/img/productos/_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgTer").src = 'https://ferremobil.com/img/productos/_002/' + clave.trim().toUpperCase() + '_002.jpg';
-                document.getElementById("imgTerModal").src = 'https://ferremobil.com/img/productos/_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                document.getElementById("imgSec").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
+                document.getElementById("imgSecModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
+                document.getElementById("imgTer").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                document.getElementById("imgTerModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
 
                 $('.carousel').carousel(0); 
             }
@@ -308,13 +303,13 @@ export default {
         },
 
         modalFeatures(id) {
-            axios.get('http://192.168.0.7:3900/api/features/' + id).then(res => {
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/features/` + id).then(res => {
                 this.features = res.data.features;
             });
         },
 
         Video(id) {
-            axios.get('http://192.168.0.7:3900/api/video/' + id)
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/video/` + id)
                 .then(res => {
                     this.video = res.data.video;
                 })
@@ -326,8 +321,8 @@ export default {
         },
 
         imagen(clave) {
-            //var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toLowerCase();
-            var imgTmp = 'https://ferremobil.com/img/productos/principal/' + clave.trim().toUpperCase();
+            //var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toLowerCase();
+            var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase();
             if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
                 var image_url = document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
                 console.log(this.imageExists(image_url));
@@ -335,13 +330,13 @@ export default {
                     document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
                     document.getElementById("imgModal").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
                 } else {
-                    document.getElementById("img").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
-                    document.getElementById("imgModal").src = 'http://192.168.0.250/' + clave.trim().toUpperCase() + '.jpeg';
+                    document.getElementById("img").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
+                    document.getElementById("imgModal").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
                 }
-                document.getElementById("imgSec").src = 'https://ferremobil.com/img/productos/_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgSecModal").src = 'https://ferremobil.com/img/productos/_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgTer").src = 'https://ferremobil.com/img/productos/_002/' + clave.trim().toUpperCase() + '_002.jpg';
-                document.getElementById("imgTerModal").src = 'https://ferremobil.com/img/productos/_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                document.getElementById("imgSec").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
+                document.getElementById("imgSecModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
+                document.getElementById("imgTer").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                document.getElementById("imgTerModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
             }
         },
 
