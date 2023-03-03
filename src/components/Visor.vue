@@ -51,7 +51,7 @@
                     <div class="modal-dialog modal-xl modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="titulo">TALADRO 1/2 BOSCH VVR 750W GBM 13 RE</h5>
+                                <h5 class="modal-title" id="titulo">{{ descripcion }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -147,21 +147,23 @@
                 <div class="contenedor overflow-auto">
                     <table class="table table-sm table-striped mb-0">
                         <thead class="thead-dark">
-                            <tr>
+                            <tr class="sticky-top">
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Cód. fabricante</th>
+                                <th scope="col">Cod. fabricante</th>
                                 <th scope="col">Cantidad</th>
                                 <th scope="col">Unidad</th>
                                 <th scope="col">Base</th>
                             </tr>
                         </thead>
                         <tbody id="tabla">
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
+                            <tr class="producto" style="height: 50px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
+                                v-on:click="updateProduct(item)">
+                                <td>{{ item._ }}</td>
+                                <td>{{ item.CLAVE[0] }}</td>
+                                <td>{{ item.CANTIDAD[0] }}</td>
+                                <td>{{ item.UNIDAD[0] }}</td>
+                                <td>$ {{ ((item.IMPORTE[0] - item.DESCUENTO[0]) * ("1." + item.TASA_CUOTA[0])).toFixed(2) }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -202,10 +204,11 @@ export default {
         this.name = this.$route.params.name;
         var xmlhttp;
 
+        this.socket.emit('data', this.name);
+
         this.socket.on('xmlChange', (data) => {
             console.log(data);
             xmlhttp = new XMLHttpRequest();
-            const here = this;
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
                 this.LoadXML(res.data.xml);
             }).catch(err => {
@@ -222,43 +225,36 @@ export default {
 
     },
     methods: {
+        updateProduct(product) {
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/article/` + product.CLAVE[0]).then(res => {
+                this.linea = res.data.article.linea_producto;
+                this.alias = res.data.article.alias_producto;
+                this.clvprov = res.data.article.clvprov_producto;
+                this.codbar = res.data.article.codigo_barras_producto;
+                this.stock = res.data.article.stock_producto;
+                this.descripcion = res.data.article.descripcion_producto;
+                this.modalFeatures(res.data.article.id_producto);
+                this.Video(res.data.article.id_producto);
+            });
+
+            this.imagen2(product.IMAGEN[0]);
+        },
+
         LoadXML(xml) {
             var productos, i, xmlDoc;
             this.xmlAPI = xml;
             xmlDoc = JSON.parse(xml);
+            this.xmlItems = JSON.parse(xml).CHARACTER.PRODUCTOS;
+
             var xmlObj = xmlDoc.CHARACTER;
             productos = xmlObj.PRODUCTOS;
             document.getElementById("fecha").innerHTML = xmlObj.DOCUMENTO[0].FECHA[0];
             document.getElementById("total").innerHTML = xmlObj.TOTAL[0]._;
             document.getElementById("vendedor").innerHTML = xmlObj.VENDEDOR[0];
-            $("#tabla tr").remove();
-            for (i = 0; i < xmlObj.PRODUCTOS.length; i++) {
-                var table = document.getElementById("tabla");
-                var row = table.insertRow(i);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                var cell4 = row.insertCell(3);
-                var cell5 = row.insertCell(4);
-                var importe = productos[i].IMPORTE[0];
-                var descuento = productos[i].DESCUENTO[0];
-                var tasa_cuota = productos[i].TASA_CUOTA[0];
-                var tasa = "1." + tasa_cuota;
-                var precio_unitario = (importe - descuento) * tasa;
-                cell1.innerHTML = productos[i]._;
-                cell2.innerHTML = productos[i].CLAVE[0];
-                cell3.innerHTML = productos[i].CANTIDAD[0];
-                cell4.innerHTML = productos[i].UNIDAD[0];
-                cell5.innerHTML = "$ " + precio_unitario.toFixed(2);
 
-                row.id = productos[i].CLAVE[0];
-                row.imagen = productos[i].IMAGEN[0];
-                row.classList.add("producto");
-            }
-            let clave = document.querySelectorAll(".producto");
-            let imagenArchivo = clave[clave.length - 1].imagen;
-            clave = clave[clave.length - 1].id;
-            this.claveVue = clave;
+            let imagenArchivo = this.xmlItems[this.xmlItems.length - 1].IMAGEN[0].trim();
+            this.claveVue = this.xmlItems[this.xmlItems.length - 1].CLAVE[0].trim();
+            let clave = this.claveVue;
 
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/article/` + clave).then(res => {
                 this.linea = res.data.article.linea_producto;
@@ -278,6 +274,7 @@ export default {
 
         imagen2(clave) {
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
+                console.log(res.data);
             });
             var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase();
             if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
@@ -294,11 +291,11 @@ export default {
                 document.getElementById("imgTer").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
                 document.getElementById("imgTerModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
 
-                $('.carousel').carousel(0); 
+                $('.carousel').carousel(0);
             }
         },
 
-        changeImages(){
+        changeImages() {
             console.log('hola');
         },
 
