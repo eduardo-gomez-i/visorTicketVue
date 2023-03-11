@@ -6,28 +6,36 @@
                         class="img-fluid mx-auto d-block shadow rounded bg-white"
                         alt="Ferremobil y Ferretera San Juan logotipos">
                 </p>
-                <!--
-            			<p class="m-0"><img id="img" src="http://192.168.0.250/20TIN0.jpeg" class="img-fluid mx-auto d-block rounded"></p>
-            -->
                 <!-- Comienza carrusel con modal -->
                 <!-- Carrusel -->
                 <div id="galeria" class="carousel slide" data-ride="carousel" data-interval="false" data-touch="true">
                     <ol class="carousel-indicators">
                         <li data-target="#galeria" data-slide-to="0" class="active"></li>
-                        <li data-target="#galeria" data-slide-to="1"></li>
-                        <li data-target="#galeria" data-slide-to="2"></li>
-                        <li data-target="#galeria" data-slide-to="3" v-if="video != null"></li>
+                        <li data-target="#galeria" data-slide-to="1" v-if="images.includes('_001')"></li>
+                        <li data-target="#galeria" data-slide-to="2" v-if="images.includes('_002')"></li>
+                        <li data-target="#galeria" data-slide-to="3" v-if="images.includes('_003')"></li>
+                        <li data-target="#galeria" data-slide-to="4" v-if="video != null"></li>
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <a href="#informacion" data-toggle="modal"><img id="img" src="/img/23TAL011.jpg"
-                                    class="d-block w-100" alt="Taladro"></a>
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="img" :src="imgPrincipal" class="d-block w-100" alt="Taladro">
+                            </a>
                         </div>
-                        <div class="carousel-item">
-                            <img id="imgSec" src="/img/23TAL011_001.jpg" class="d-block w-100" alt="Taladro">
+                        <div class="carousel-item" v-if="images.includes('_001')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgSec" :src="img1" class="d-block w-100" alt="Taladro">
+                            </a>
                         </div>
-                        <div class="carousel-item">
-                            <img id="imgTer" src="/img/23TAL011_003.jpg" class="d-block w-100" alt="Taladro">
+                        <div class="carousel-item" v-if="images.includes('_002')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgTer" :src="img2" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_003')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgTer" :src="img3" class="d-block w-100" alt="Taladro">
+                            </a>
                         </div>
                         <div class="carousel-item" v-if="video != null">
                             <div class="embed-responsive embed-responsive-16by9">
@@ -64,23 +72,31 @@
                                                 data-interval="false" data-touch="true">
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#galeriaModal" data-slide-to="0" class="active"></li>
-                                                    <li data-target="#galeriaModal" data-slide-to="1"></li>
-                                                    <li data-target="#galeriaModal" data-slide-to="2"></li>
-                                                    <li data-target="#galeriaModal" data-slide-to="3" v-if="video != null">
+                                                    <li data-target="#galeriaModal" data-slide-to="1"
+                                                        v-if="images.includes('_001')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="2"
+                                                        v-if="images.includes('_002')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="3"
+                                                        v-if="images.includes('_003')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="4" v-if="video != null">
                                                     </li>
                                                 </ol>
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active">
-                                                        <img id="imgModal" src="/img/23TAL011.jpg" class="d-block w-100"
+                                                        <img id="imgModal" :src="imgPrincipal" class="d-block w-100"
                                                             alt="Taladro">
                                                     </div>
-                                                    <div class="carousel-item">
-                                                        <img id="imgSecModal" src="/img/23TAL011_001.jpg"
-                                                            class="d-block w-100" alt="Taladro">
+                                                    <div class="carousel-item" v-if="images.includes('_001')">
+                                                        <img id="imgSecModal" :src="img1" class="d-block w-100"
+                                                            alt="Taladro">
                                                     </div>
-                                                    <div class="carousel-item">
-                                                        <img id="imgTerModal" src="/img/23TAL011_003.jpg"
-                                                            class="d-block w-100" alt="Taladro">
+                                                    <div class="carousel-item" v-if="images.includes('_002')">
+                                                        <img id="imgTerModal" :src="img2" class="d-block w-100"
+                                                            alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_003')">
+                                                        <img id="imgTerModal" :src="img3" class="d-block w-100"
+                                                            alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="video != null">
                                                         <div class="embed-responsive embed-responsive-16by9">
@@ -158,7 +174,7 @@
                         <tbody id="tabla">
                             <tr class="producto" style="height: 50px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
                                 v-on:click="updateProduct(item)">
-                                <td>{{ item._ }}</td>
+                                <td><i class="fa-solid fa-hand-pointer fa-beat text-success"></i> {{ item._ }}</td>
                                 <td>{{ item.CLAVE[0] }}</td>
                                 <td>{{ item.CANTIDAD[0] }}</td>
                                 <td>{{ item.UNIDAD[0] }}</td>
@@ -194,6 +210,12 @@ export default {
             stock: null,
             descripcion: null,
             video: null,
+            images: [],
+            imgPrincipal: null,
+            img1: null,
+            img2: null,
+            img3: null,
+            img4: null,
             features: [],
             xmlAPI: null,
             socket: io(`${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}`, { transports: ['websocket'] })
@@ -208,12 +230,6 @@ export default {
 
         this.socket.on('xmlChange', (data) => {
             console.log(data);
-            xmlhttp = new XMLHttpRequest();
-            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
-                this.LoadXML(res.data.xml);
-            }).catch(err => {
-                console.log(err);
-            });
         });
 
         xmlhttp = new XMLHttpRequest();
@@ -237,7 +253,7 @@ export default {
                 this.Video(res.data.article.id_producto);
             });
 
-            this.imagen2(product.IMAGEN[0]);
+            this.imagen(product.IMAGEN[0]);
         },
 
         LoadXML(xml) {
@@ -269,34 +285,29 @@ export default {
 
 
 
-            this.imagen2(imagenArchivo);
+            this.imagen(imagenArchivo);
         },
 
-        imagen2(clave) {
+        imagen(clave) {
+
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
-                console.log(res.data);
-            });
-            var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase();
-            if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
-                var image_url = document.getElementById("img").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
-                if (this.imageExists(image_url) != false) {
-                    document.getElementById("img").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
-                    document.getElementById("imgModal").src = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
-                } else {
-                    document.getElementById("img").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
-                    document.getElementById("imgModal").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
+                this.images = res.data.images;
+                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg'
+                if (this.images.includes('_001')) {
+                    this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
                 }
-                document.getElementById("imgSec").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgSecModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgTer").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
-                document.getElementById("imgTerModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                if (this.images.includes('_002')) {
+                    this.img2 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                }
+                if (this.images.includes('_003')) {
+                    this.img3 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_003/' + clave.trim().toUpperCase() + '_003.jpg';
+                }
+                if (this.images.includes('_004')) {
+                    this.img4 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_004/' + clave.trim().toUpperCase() + '_004.jpg';
+                }
+            });
 
-                $('.carousel').carousel(0);
-            }
-        },
-
-        changeImages() {
-            console.log('hola');
+            $('.carousel').carousel(0);
         },
 
         modalFeatures(id) {
@@ -316,36 +327,6 @@ export default {
                     //console.log(err.response.data);
                 });
         },
-
-        imagen(clave) {
-            //var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toLowerCase();
-            var imgTmp = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase();
-            if ((document.getElementById("img").src != imgTmp + '.jpg') && (document.getElementById("img").src != imgTmp + '.jpeg')) {
-                var image_url = document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
-                console.log(this.imageExists(image_url));
-                if (this.imageExists(image_url) != false) {
-                    document.getElementById("img").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
-                    document.getElementById("imgModal").src = 'http://localhost/xml/images/' + clave.trim().toUpperCase() + '.jpg';
-                } else {
-                    document.getElementById("img").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
-                    document.getElementById("imgModal").src = `http://${import.meta.env.VITE_SERVER_IP}/` + clave.trim().toUpperCase() + '.jpeg';
-                }
-                document.getElementById("imgSec").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgSecModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
-                document.getElementById("imgTer").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
-                document.getElementById("imgTerModal").src = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
-            }
-        },
-
-        imageExists(image_url) {
-
-            var http = new XMLHttpRequest();
-
-            http.open('GET', image_url, true);
-            http.send();
-
-            return http.status != 404;
-        }
     },
 }
 </script>
