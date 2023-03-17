@@ -230,6 +230,12 @@ export default {
 
         this.socket.on('xmlChange', (data) => {
             console.log(data);
+	    xmlhttp = new XMLHttpRequest();
+axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
+            this.LoadXML(res.data.xml);
+        }).catch(err => {
+            console.log(err);
+        });
         });
 
         xmlhttp = new XMLHttpRequest();
