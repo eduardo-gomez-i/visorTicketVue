@@ -172,9 +172,11 @@
                             </tr>
                         </thead>
                         <tbody id="tabla">
-                            <tr class="producto" style="height: 50px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
+                            <tr class="producto" style="height: 80px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
                                 v-on:click="updateProduct(item)">
-                                <td><i class="fa-solid fa-hand-pointer fa-beat text-success"></i> {{ item._ }}</td>
+                                <td class="d-flex justify-content-between">
+                                    {{ item._ }} <i class="fa-solid fa-hand-pointer fa-beat fa-2xl text-danger" v-if="xmlItems.length > 1"></i>
+                                </td>
                                 <td>{{ item.CLAVE[0] }}</td>
                                 <td>{{ item.CANTIDAD[0] }}</td>
                                 <td>{{ item.UNIDAD[0] }}</td>
@@ -230,6 +232,12 @@ export default {
 
         this.socket.on('xmlChange', (data) => {
             console.log(data);
+            xmlhttp = new XMLHttpRequest();
+            axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/xml/` + this.name).then(res => {
+                this.LoadXML(res.data.xml);
+            }).catch(err => {
+                console.log(err);
+            });
         });
 
         xmlhttp = new XMLHttpRequest();
