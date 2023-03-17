@@ -175,7 +175,8 @@
                             <tr class="producto" style="height: 80px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
                                 v-on:click="updateProduct(item)">
                                 <td class="d-flex justify-content-between">
-                                    {{ item._ }} <i class="fa-solid fa-hand-pointer fa-beat fa-2xl text-danger" v-if="xmlItems.length > 1"></i>
+                                    {{ item._ }} <i class="fa-solid fa-hand-pointer fa-beat fa-2xl text-danger"
+                                        v-if="xmlItems.length > 1"></i>
                                 </td>
                                 <td>{{ item.CLAVE[0] }}</td>
                                 <td>{{ item.CANTIDAD[0] }}</td>
