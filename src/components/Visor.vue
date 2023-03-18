@@ -82,8 +82,8 @@
                                                     </li>
                                                 </ol>
                                                 <div class="carousel-inner">
-                                                    <div class="carousel-item active">
-                                                        <img id="imgModal" :src="imgPrincipal" class="d-block w-100"
+                                                    <div class="carousel-item active img-hover">
+                                                        <img id="imgModal" :src="imgPrincipal" class="d-block w-100 img-responsive img-rounded"
                                                             alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_001')">
@@ -157,7 +157,7 @@
             <div class="col-md-7 p-0">
                 <h4 class="text-danger mt-3"><i class="fas fa-shopping-basket"></i> Lista de compra</h4>
                 <p class="datos">
-                    <span class="text-secondary"><i class="fas fa-user"></i> Nombre:</span> <span id="vendedor"></span>
+                    <span class="text-secondary"><i class="fas fa-user"></i> Le atiende:</span> <span id="vendedor"></span>
                     <br><span class="text-secondary"><i class="fas fa-calendar"></i> Fecha:</span> <span id="fecha"></span>
                 </p>
                 <div class="contenedor overflow-auto">
@@ -165,18 +165,17 @@
                         <thead class="thead-dark">
                             <tr class="sticky-top">
                                 <th scope="col">Descripción</th>
-                                <th scope="col">Cod. fabricante</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Unidad</th>
+                                <th scope="col">Codigo</th>
+                                <th scope="col">CANT.</th>
+                                <th scope="col">Uni.</th>
                                 <th scope="col">Base</th>
                             </tr>
                         </thead>
                         <tbody id="tabla">
-                            <tr class="producto" style="height: 80px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
+                            <tr class="producto" style="height: 70px;" v-for="item in xmlItems" :key="item.CLAVE[0]"
                                 v-on:click="updateProduct(item)">
                                 <td class="d-flex justify-content-between">
-                                    {{ item._ }} <i class="fa-solid fa-hand-pointer fa-beat fa-2xl text-danger"
-                                        v-if="xmlItems.length > 1"></i>
+                                    {{ item._ }} <i class="fa-solid fa-hand-pointer fa-beat fa-2xl text-danger"></i>
                                 </td>
                                 <td>{{ item.CLAVE[0] }}</td>
                                 <td>{{ item.CANTIDAD[0] }}</td>
