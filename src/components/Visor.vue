@@ -83,20 +83,16 @@
                                                 </ol>
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active img-hover">
-                                                        <img id="imgModal" :src="imgPrincipal" class="d-block w-100 img-responsive img-rounded"
-                                                            alt="Taladro">
+                                                            <inner-image-zoom :src="imgPrincipal" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_001')">
-                                                        <img id="imgSecModal" :src="img1" class="d-block w-100"
-                                                            alt="Taladro">
+                                                        <inner-image-zoom :src="img1" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_002')">
-                                                        <img id="imgTerModal" :src="img2" class="d-block w-100"
-                                                            alt="Taladro">
+                                                        <inner-image-zoom :src="img2" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_003')">
-                                                        <img id="imgTerModal" :src="img3" class="d-block w-100"
-                                                            alt="Taladro">
+                                                        <inner-image-zoom :src="img3" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
                                                     </div>
                                                     <div class="carousel-item" v-if="video != null">
                                                         <div class="embed-responsive embed-responsive-16by9">
@@ -196,9 +192,15 @@
 
 <script>
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'vue-inner-image-zoom/lib/vue-inner-image-zoom.css';
+import InnerImageZoom from 'vue-inner-image-zoom';
 import axios from 'axios';
 import io from 'socket.io-client';
 export default {
+
+    components: {
+        'inner-image-zoom': InnerImageZoom
+    },
 
     data() {
         return {
