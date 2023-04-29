@@ -69,7 +69,7 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div id="galeriaModal" class="carousel slide" data-ride="carousel"
-                                                data-interval="false" data-touch="true">
+                                                data-interval="false" v-viewer>
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#galeriaModal" data-slide-to="0" class="active"></li>
                                                     <li data-target="#galeriaModal" data-slide-to="1"
@@ -83,16 +83,16 @@
                                                 </ol>
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active img-hover">
-                                                            <inner-image-zoom :src="imgPrincipal" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="img" :src="imgPrincipal" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_001')">
-                                                        <inner-image-zoom :src="img1" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgSec" :src="img1" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_002')">
-                                                        <inner-image-zoom :src="img2" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgTer" :src="img2" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_003')">
-                                                        <inner-image-zoom :src="img3" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgTer" :src="img3" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="video != null">
                                                         <div class="embed-responsive embed-responsive-16by9">
@@ -214,7 +214,16 @@ export default {
             stock: null,
             descripcion: null,
             video: null,
-            images: [],
+            images: [
+          "https://picsum.photos/200/200",
+          "https://picsum.photos/300/200",
+          "https://picsum.photos/250/200"
+        ],
+        imagesCarousel: [
+          "https://picsum.photos/200/200",
+          "https://picsum.photos/300/200",
+          "https://picsum.photos/250/200"
+        ],
             imgPrincipal: null,
             img1: null,
             img2: null,
@@ -302,7 +311,8 @@ export default {
 
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
                 this.images = res.data.images;
-                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg'
+                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
+                this.imagesCarousel.push(this.imgPrincipal)
                 if (this.images.includes('_001')) {
                     this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
                 }
