@@ -14,7 +14,16 @@
                         <li data-target="#galeria" data-slide-to="1" v-if="images.includes('_001')"></li>
                         <li data-target="#galeria" data-slide-to="2" v-if="images.includes('_002')"></li>
                         <li data-target="#galeria" data-slide-to="3" v-if="images.includes('_003')"></li>
-                        <li data-target="#galeria" data-slide-to="4" v-if="video != null"></li>
+                        <li data-target="#galeria" data-slide-to="4" v-if="images.includes('_004')"></li>
+                        <li data-target="#galeria" data-slide-to="5" v-if="images.includes('_005')"></li>
+                        <li data-target="#galeria" data-slide-to="6" v-if="images.includes('_006')"></li>
+                        <li data-target="#galeria" data-slide-to="7" v-if="images.includes('_007')"></li>
+                        <li data-target="#galeria" data-slide-to="8" v-if="images.includes('_008')"></li>
+                        <li data-target="#galeria" data-slide-to="9" v-if="images.includes('_009')"></li>
+                        <li data-target="#galeria" data-slide-to="10" v-if="images.includes('_010')"></li>
+                        <li data-target="#galeria" data-slide-to="11" v-if="images.includes('_011')"></li>
+                        <li data-target="#galeria" data-slide-to="12" v-if="images.includes('_012')"></li>
+                        <li data-target="#galeria" data-slide-to="13" v-if="video != null"></li>
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -35,6 +44,51 @@
                         <div class="carousel-item" v-if="images.includes('_003')">
                             <a href="#informacion" data-toggle="modal">
                                 <img id="imgTer" :src="img3" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_004')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgCua" :src="img4" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_005')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgQui" :src="img5" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_006')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgSex" :src="img6" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_007')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgSep" :src="img7" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_008')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgOct" :src="img8" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_009')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgNov" :src="img9" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_010')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgDec" :src="img10" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_011')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgOnc" :src="img11" class="d-block w-100" alt="Taladro">
+                            </a>
+                        </div>
+                        <div class="carousel-item" v-if="images.includes('_012')">
+                            <a href="#informacion" data-toggle="modal">
+                                <img id="imgDoc" :src="img12" class="d-block w-100" alt="Taladro">
                             </a>
                         </div>
                         <div class="carousel-item" v-if="video != null">
@@ -69,7 +123,7 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div id="galeriaModal" class="carousel slide" data-ride="carousel"
-                                                data-interval="false" data-touch="true">
+                                                data-interval="false" v-viewer>
                                                 <ol class="carousel-indicators">
                                                     <li data-target="#galeriaModal" data-slide-to="0" class="active"></li>
                                                     <li data-target="#galeriaModal" data-slide-to="1"
@@ -78,21 +132,66 @@
                                                         v-if="images.includes('_002')"></li>
                                                     <li data-target="#galeriaModal" data-slide-to="3"
                                                         v-if="images.includes('_003')"></li>
-                                                    <li data-target="#galeriaModal" data-slide-to="4" v-if="video != null">
+                                                    <li data-target="#galeriaModal" data-slide-to="4"
+                                                        v-if="images.includes('_004')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="5"
+                                                        v-if="images.includes('_005')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="6"
+                                                        v-if="images.includes('_006')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="7"
+                                                        v-if="images.includes('_007')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="8"
+                                                        v-if="images.includes('_008')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="9"
+                                                        v-if="images.includes('_009')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="10"
+                                                        v-if="images.includes('_010')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="11"
+                                                        v-if="images.includes('_011')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="12"
+                                                        v-if="images.includes('_012')"></li>
+                                                    <li data-target="#galeriaModal" data-slide-to="13" v-if="video != null">
                                                     </li>
                                                 </ol>
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active img-hover">
-                                                            <inner-image-zoom :src="imgPrincipal" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="img" :src="imgPrincipal" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_001')">
-                                                        <inner-image-zoom :src="img1" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgSec" :src="img1" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_002')">
-                                                        <inner-image-zoom :src="img2" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgTer" :src="img2" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="images.includes('_003')">
-                                                        <inner-image-zoom :src="img3" moveType="drag" :fullscreenOnMobile="true" :hideCloseButton="true" />
+                                                        <img id="imgTer" :src="img3" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_004')">
+                                                        <img id="imgCua" :src="img4" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_005')">
+                                                        <img id="imgQui" :src="img5" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_006')">
+                                                        <img id="imgSex" :src="img6" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_007')">
+                                                        <img id="imgSep" :src="img7" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_008')">
+                                                        <img id="imgOct" :src="img8" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_009')">
+                                                        <img id="imgNov" :src="img9" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_010')">
+                                                        <img id="imgDec" :src="img10" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_011')">
+                                                        <img id="imgOnc" :src="img11" class="d-block w-100" alt="Taladro">
+                                                    </div>
+                                                    <div class="carousel-item" v-if="images.includes('_012')">
+                                                        <img id="imgDoc" :src="img12" class="d-block w-100" alt="Taladro">
                                                     </div>
                                                     <div class="carousel-item" v-if="video != null">
                                                         <div class="embed-responsive embed-responsive-16by9">
@@ -214,12 +313,29 @@ export default {
             stock: null,
             descripcion: null,
             video: null,
-            images: [],
+            images: [
+          "https://picsum.photos/200/200",
+          "https://picsum.photos/300/200",
+          "https://picsum.photos/250/200"
+        ],
+        imagesCarousel: [
+          "https://picsum.photos/200/200",
+          "https://picsum.photos/300/200",
+          "https://picsum.photos/250/200"
+        ],
             imgPrincipal: null,
             img1: null,
             img2: null,
             img3: null,
             img4: null,
+            img5: null,
+            img6: null,
+            img7: null,
+            img8: null,
+            img9: null,
+            img10: null,
+            img11: null,
+            img12: null,
             features: [],
             xmlAPI: null,
             socket: io(`${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}`, { transports: ['websocket'] })
@@ -302,7 +418,8 @@ export default {
 
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
                 this.images = res.data.images;
-                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg.webp'
+                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
+                this.imagesCarousel.push(this.imgPrincipal)
                 if (this.images.includes('_001')) {
                     this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg.webp';
                 }
@@ -314,6 +431,30 @@ export default {
                 }
                 if (this.images.includes('_004')) {
                     this.img4 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_004/' + clave.trim().toUpperCase() + '_004.jpg.webp';
+                }
+                if (this.images.includes('_005')) {
+                    this.img5 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_005/' + clave.trim().toUpperCase() + '_005.jpg';
+                }
+                if (this.images.includes('_006')) {
+                    this.img6 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_006/' + clave.trim().toUpperCase() + '_006.jpg';
+                }
+                if (this.images.includes('_007')) {
+                    this.img7 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_007/' + clave.trim().toUpperCase() + '_007.jpg';
+                }
+                if (this.images.includes('_008')) {
+                    this.img8 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_008/' + clave.trim().toUpperCase() + '_008.jpg';
+                }
+                if (this.images.includes('_009')) {
+                    this.img9 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_009/' + clave.trim().toUpperCase() + '_009.jpg';
+                }
+                if (this.images.includes('_010')) {
+                    this.img10 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_010/' + clave.trim().toUpperCase() + '_010.jpg';
+                }
+                if (this.images.includes('_011')) {
+                    this.img11 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_011/' + clave.trim().toUpperCase() + '_011.jpg';
+                }
+                if (this.images.includes('_012')) {
+                    this.img12 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_012/' + clave.trim().toUpperCase() + '_012.jpg';
                 }
             });
 
