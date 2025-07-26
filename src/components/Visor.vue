@@ -418,7 +418,7 @@ export default {
 
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
                 this.images = res.data.images;
-                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg';
+                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg.webp';
                 this.imagesCarousel.push(this.imgPrincipal)
                 if (this.images.includes('_001')) {
                     this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg.webp';
