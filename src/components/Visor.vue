@@ -302,18 +302,18 @@ export default {
 
             axios.get(`http://${import.meta.env.VITE_API_IP}:${import.meta.env.VITE_PORT}/api/image/` + clave).then(res => {
                 this.images = res.data.images;
-                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg'
+                this.imgPrincipal = `${import.meta.env.VITE_IMG_URL}` + clave.trim().toUpperCase() + '.jpg.webp'
                 if (this.images.includes('_001')) {
-                    this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg';
+                    this.img1 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_001/' + clave.trim().toUpperCase() + '_001.jpg.webp';
                 }
                 if (this.images.includes('_002')) {
-                    this.img2 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg';
+                    this.img2 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_002/' + clave.trim().toUpperCase() + '_002.jpg.webp';
                 }
                 if (this.images.includes('_003')) {
-                    this.img3 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_003/' + clave.trim().toUpperCase() + '_003.jpg';
+                    this.img3 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_003/' + clave.trim().toUpperCase() + '_003.jpg.webp';
                 }
                 if (this.images.includes('_004')) {
-                    this.img4 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_004/' + clave.trim().toUpperCase() + '_004.jpg';
+                    this.img4 = `${import.meta.env.VITE_IMG_SECUNDARIA_URL}` + '_004/' + clave.trim().toUpperCase() + '_004.jpg.webp';
                 }
             });
 
